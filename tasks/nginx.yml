@@ -1,6 +1,8 @@
 - name: Nginx | Install
   apt: pkg=nginx state=latest
   register: installed
+  notify:
+    - restart nginx
 
 - name:  Nginx | Remove the default app
   file: path=/etc/nginx/sites-enabled/default state=absent
@@ -18,4 +20,4 @@
   file: path=/etc/nginx/sites-enabled/{{ item.name }} src=/etc/nginx/sites-available/{{ item.name }} state=link
   with_items: nginx_apps
   notify:
-    - Restart Nginx
+    - reload nginx

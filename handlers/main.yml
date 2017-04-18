@@ -1,2 +1,7 @@
-- name: Restart Nginx
-  command: service nginx restart
+---
+
+- name: restart nginx
+  systemd: name=nginx state=restarted
+
+- name: reload nginx
+  systemd: name=nginx state=reloaded
